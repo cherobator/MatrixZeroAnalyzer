@@ -23,4 +23,3 @@ def create_matrix_payload(matrix, version="1.0"):
         "matrix_size": n,
         "matrix_data": normalized,
     }
-    

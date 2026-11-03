@@ -10,4 +10,5 @@ dist/
 .env
 venv/
 __pycache__/
-*.pyc
+*.pyctmp_exchange/
+.coverage

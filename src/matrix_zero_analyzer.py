@@ -1,50 +1,38 @@
+"""Модуль подсчёта нулевых элементов относительно диагоналей матрицы."""
+
+
 def count_zeros(matrix):
+    """Считает нули: выше/ниже главной и выше/ниже побочной диагоналей."""
     n = len(matrix)
-    up_main = 0
-    down_main = 0
-    up_side = 0
-    down_side = 0
+    above_main = 0
+    below_main = 0
+    above_sec = 0
+    below_sec = 0
 
     for i in range(n):
         for j in range(n):
             if matrix[i][j] == 0:
                 if j > i:
-                    up_main += 1
+                    above_main += 1
                 elif i > j:
-                    down_main += 1
+                    below_main += 1
 
                 if i + j < n - 1:
-                    up_side += 1
+                    above_sec += 1
                 elif i + j > n - 1:
-                    down_side += 1
+                    below_sec += 1
 
-    return up_main, down_main, up_side, down_side
-
-
-def read_matrix():
-    n = int(input("Введите размерность матрицы n: "))
-    print(f"Введите элементы матрицы {n}x{n} построчно через пробел:")
-    matrix = []
-    for _ in range(n):
-        row = input().split()
-        matrix.append([float(num) for num in row])
-    return matrix
+    return above_main, below_main, above_sec, below_sec
 
 
-def main():
-    matrix = read_matrix()
-    up_main, down_main, up_side, down_side = count_zeros(matrix)
-
-    print("\nИсходная матрица:")
-    for row in matrix:
-        print(" ".join(map(str, row)))
-
-    print("\nРезультаты анализа:")
-    print("Количество нулей выше главной диагонали:", up_main)
-    print("Количество нулей ниже главной диагонали:", down_main)
-    print("Количество нулей выше побочной диагонали:", up_side)
-    print("Количество нулей ниже побочной диагонали:", down_side)
-
-
-if __name__ == "__main__":
-    main()
+def analyze_payload(payload):
+    """Принимает структуру данных ввода и возвращает словарь результатов."""
+    matrix = payload["matrix_data"]
+    am, bm, asec, bsec = count_zeros(matrix)
+    return {
+        "dim": payload["matrix_size"],
+        "zeros_above_main": am,
+        "zeros_below_main": bm,
+        "zeros_above_secondary": asec,
+        "zeros_below_secondary": bsec,
+    }

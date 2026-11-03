@@ -15,12 +15,13 @@ def format_report(counts):
 
 
 def format_mapped_report(mapped_dto):
-    """Формирует расширенный отчёт из сопоставленного объекта данных."""
+    """Формирует отчёт из сопоставленных данных."""
     counts = (
         mapped_dto["main_diag_upper"],
         mapped_dto["main_diag_lower"],
         mapped_dto["sec_diag_upper"],
         mapped_dto["sec_diag_lower"],
     )
-    header = f"Отчёт для матрицы {mapped_dto['dimension']}x{mapped_dto['dimension']}"
-    return f"{header}\n{format_report(counts)}"
+    n = mapped_dto["dimension"]
+    header = f"Отчёт для матрицы {n}x{n}"
+    return header + "\n" + format_report(counts)

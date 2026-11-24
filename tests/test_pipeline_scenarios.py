@@ -48,6 +48,7 @@ def test_invalid_matrix_is_rejected_before_file_creation(tmp_path):
         (integration, "Выше главной диагонали: 3"),
         (binary_integration, "Размер бинарного файла: 81 байт"),
     ],
+    ids=["direct", "binary"],
 )
 def test_demo_entry_point_prints_result(module, expected_text, capsys):
     runpy.run_path(module.__file__, run_name="__main__")

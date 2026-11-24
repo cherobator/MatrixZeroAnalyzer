@@ -1,5 +1,7 @@
 """Модуль ввода и первичной валидации квадратной матрицы."""
 
+import math
+
 
 def create_matrix_payload(matrix, version="1.0"):
     """Формирует пакет входных данных с проверкой размерности n x n."""
@@ -15,7 +17,10 @@ def create_matrix_payload(matrix, version="1.0"):
         for item in row:
             if isinstance(item, bool) or not isinstance(item, (int, float)):
                 raise ValueError("Элементы матрицы должны быть числами.")
-            normalized_row.append(float(item))
+            value = float(item)
+            if not math.isfinite(value):
+                raise ValueError("Элементы матрицы должны быть конечными.")
+            normalized_row.append(value)
         normalized.append(normalized_row)
 
     return {
